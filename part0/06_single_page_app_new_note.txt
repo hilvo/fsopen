@@ -1,0 +1,8 @@
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: status code 201
+
+
+note over browser:
+browser rerenders the note list
+on the web page
+end note
