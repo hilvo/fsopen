@@ -70,17 +70,21 @@ const App = () => {
       personService
       .create(personObject)
       .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson)) 
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+        setMessage(`Added ${newName}.`)
+        setTimeout(() => setMessage(null), 5000)
       })
-      .then(setNewName(''))
-      .then(setNewNumber(''))
-      .then(setMessage(`Added ${newName}.`))
-      .then(setTimeout(() => setMessage(null), 5000))
+      .catch(error => {
+        setMessage(error.response.data.error)
+        setTimeout(() => setMessage(null), 5000)
+      })
     }
   }
 
   const namesToShow = () => {
-    return persons.filter(person => person.name.includes(filterName))
+    return persons.filter(person => person.name.toLowerCase().includes(filterName))
   }
 
   const handlePersonChange = (event) => {
@@ -119,6 +123,7 @@ const App = () => {
       .then(setNewNumber(''))
       .then(setMessage(`The number of ${changedPerson.name} was successfully changed.`))
       .then(setTimeout(() => setMessage(null), 5000))
+
   }
 
   const Notification = ({ message }) => {
